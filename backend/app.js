@@ -16,4 +16,13 @@ app.use(express.json()) //inbuilt middleware which parses json req
 app.use("/api/v1",productRoutes);
 //middlewares
 app.use(errorMiddleware);
-app.listen(process.env.PORT , ()=>{console.log(`Server listening on port : ${process.env.PORT} in ${process.env.NODE_ENV}`)});
+const server = app.listen(process.env.PORT , ()=>{console.log(`Server listening on port : ${process.env.PORT} in ${process.env.NODE_ENV}`)});
+ 
+//handle unhandled promise rejection 
+process.on('unhandledRejection',(err) => {
+    console.log(`ERROR : ${err}`);
+    console.log('Shuttin down server due to unhandled Promise Rejection');
+    server.close(()=>{
+        process.exit(1);
+    })
+})
