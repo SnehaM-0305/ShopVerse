@@ -12,3 +12,37 @@ export const newProduct = async (req,res)=>{
 
    res.status(200).json({product,})
 }
+
+//get product by id  =>/api/v1/products/:id
+export const productById = async (req,res)=>{
+   const product = await Product.findById(req?.params?.id);
+
+   if(!product){
+      return res.status(404).json({error:"Product not found"});
+   }
+   res.status(200).json({product,})
+}
+
+//update product by id  =>/api/v1/admin/products/:id
+export const updateProduct = async (req,res)=>{
+   let product = await Product.findById(req?.params?.id);
+
+   if(!product){
+      return res.status(404).json({error:"Product not found"});
+   }
+
+   product = await Product.findByIdAndUpdate(req?.params?.id , req.body , {new:true})
+   res.status(200).json({product,})
+}
+//delete product by id  =>/api/v1/admin/products/:id
+
+export const deleteProduct = async (req,res)=>{
+   const product = await Product.findById(req?.params?.id);
+
+   if(!product){
+      return res.status(404).json({error:"Product not found"});
+   }
+
+  await product.deleteOne();
+   res.status(200).json({message:"Product is deleted"})
+}
