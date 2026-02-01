@@ -4,7 +4,14 @@ import errorMiddleware from "./middlewares/error.js"
 //import all routes
 import productRoutes from "./routes/products.js"
 import { connectDatabase } from "./config/dbConnect.js";
-import e from "express";
+
+
+//handling uncaught exceptions 
+process.on("uncaughtException" , (err) =>{
+    console.log(`ERROR : ${err}`);
+    console.log("Shutting down due to uncaught exception");
+    process.exit(1);
+})
 
 dotenv.config({path:'backend/config/config.env'})
 const app = express() ; 
