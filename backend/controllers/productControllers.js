@@ -4,13 +4,18 @@ import APIFilters from "../utils/apiFilters.js";
 import ErrorHandler from "../utils/errorHandler.js"
 import qs from "qs";
 export const getProducts = async (req,res)=>{
-    const parsedQuery = qs.parse(req.query);
-const apiFilters = new APIFilters(Product ,parsedQuery).filters();
+   
+   //  const parsedQuery = qs.parse(req.query);
+const apiFilters = new APIFilters(Product ,req.query).search().filters();
 
-
+const resPerPage = 4 ; 
 let products = await apiFilters.query;
 let filterproductscount = products.length;
+apiFilters.pagination(resPerPage);
+products = await apiFilters.query.clone() ; 
+
     res.status(200).json({
+      resPerPage,
       filterproductscount,
        products
     })

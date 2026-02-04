@@ -24,7 +24,7 @@ class APIFilters{
         const queryCopy = {...this.queryStr};
         //remove keyword as already handled in Search
         //fields to be removed ->array 
-        const fieldsToRemove = ['keyword'] ; 
+        const fieldsToRemove = ['keyword','page'] ; 
          fieldsToRemove.forEach((el) => delete queryCopy[el])
         // Advance filters for range , price etc 
         let queryStr = JSON.stringify(queryCopy);
@@ -32,6 +32,13 @@ class APIFilters{
         this.query= this.query.find(JSON.parse(queryStr))
         return this ;
 
+    }
+
+    pagination(resPerPage){
+        const currPage = Number(this.queryStr.page) || 1 ; 
+        const skipVariable = resPerPage*(currPage-1);
+        this.query = this.query.limit(resPerPage).skip(skipVariable);
+        return this ; 
     }
 }
 
