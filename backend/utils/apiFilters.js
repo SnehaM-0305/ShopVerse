@@ -7,6 +7,7 @@ class APIFilters{
     search(){
         const keyword = this.queryStr.keyword? {
             name:{
+                //mongoose keywords = regex and options 
                 //does not exactly match the name
                 $regex :this.queryStr.keyword,
                 //makes its case insensitive
@@ -15,6 +16,19 @@ class APIFilters{
         } :{};
         this.query = this.query.find({...keyword})
         return this ; 
+
+    }
+
+    //Filter products 
+    filters(){
+        const queryCopy = {...this.queryStr};
+        //remove keyword as already handled in Search
+        //fields to be removed ->array 
+        const fieldsToRemove = ['keyword'] ; 
+         fieldsToRemove.forEach((el) => delete queryCopy[el])
+
+        this.query= this.query.find(this.queryStr)
+        return this ;
 
     }
 }
