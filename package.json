@@ -5,17 +5,18 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start":"node backend/app.js" ,
-    "dev":"SET NODE_ENV=DEVELOPMENT& nodemon backend/app.js",
-    "prod":"SET NODE_ENV=PRODUCTION& nodemon backend/app.js",
-    "seeder":"node backend/seeder/seeder.js"
+    "start": "node backend/app.js",
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/app.js",
+    "prod": "SET NODE_ENV=PRODUCTION& nodemon backend/app.js",
+    "seeder": "node backend/seeder/seeder.js"
   },
   "author": "Sneha M",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "mongoose": "^9.1.5"
+    "mongoose": "^9.1.5",
+    "qs": "^6.14.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

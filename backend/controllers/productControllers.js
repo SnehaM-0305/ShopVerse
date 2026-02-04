@@ -2,8 +2,10 @@ import catchAsynErrors from "../middlewares/catchAsynErrors.js";
 import Product from "../modals/product.js"
 import APIFilters from "../utils/apiFilters.js";
 import ErrorHandler from "../utils/errorHandler.js"
+import qs from "qs";
 export const getProducts = async (req,res)=>{
-const apiFilters = new APIFilters(Product , req.query).filters();
+    const parsedQuery = qs.parse(req.query);
+const apiFilters = new APIFilters(Product ,parsedQuery).filters();
 
 
 let products = await apiFilters.query;

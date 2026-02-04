@@ -26,8 +26,10 @@ class APIFilters{
         //fields to be removed ->array 
         const fieldsToRemove = ['keyword'] ; 
          fieldsToRemove.forEach((el) => delete queryCopy[el])
-
-        this.query= this.query.find(this.queryStr)
+        // Advance filters for range , price etc 
+        let queryStr = JSON.stringify(queryCopy);
+        queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g , (match)=>`$${match}`)
+        this.query= this.query.find(JSON.parse(queryStr))
         return this ;
 
     }
