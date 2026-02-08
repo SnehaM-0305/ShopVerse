@@ -5,6 +5,7 @@ import errorMiddleware from "./middlewares/error.js"
 import productRoutes from "./routes/products.js"
 import authRoutes from "./routes/auth.js"
 import { connectDatabase } from "./config/dbConnect.js";
+import cookieParser from "cookie-parser";
 
 
 //handling uncaught exceptions 
@@ -19,8 +20,7 @@ const app = express() ;
 //databse connect 
 connectDatabase();
 app.use(express.json()) //inbuilt middleware which parses json req
-
-
+app.use(cookieParser());
 app.use("/api/v1",productRoutes);
 app.use("/api/v1",authRoutes);
 //middlewares
